@@ -3,8 +3,8 @@ const operators = document.querySelectorAll('.operator')
 const equal = document.querySelector('.equal')
 const screen = document.querySelector('.calculatorScreen')
 const upperScreen = document.querySelector('.lastScreen')
-
-
+const clear = document.querySelector('.clear')
+const backspace = document.querySelector('.backspace')
 //shows on the calculator screen the number that the user is inputing
 numbers.forEach((element)=>{
     element.addEventListener('click', showDigitOnScreen)
@@ -75,4 +75,22 @@ function operate(n1, n2, op){
     upperNumber = result;
         return result;
 }
+
+//resets calculator
+clear.addEventListener('click', ()=>{
+    upperNumber = undefined
+    currentNumber = undefined
+    operatorSign = undefined
+    screen.innerText = ''
+    upperScreen.innerText = ''
+})
+
+//deletes last digit
+backspace.addEventListener('click',()=>{
+     let numbersTotext = currentNumber.toString()
+     index = numbersTotext.length-1
+     let newNumbers = numbersTotext.slice(0,index)
+     currentNumber = parseFloat(newNumbers)
+     screen.innerText = currentNumber
     
+})
