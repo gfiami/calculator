@@ -7,10 +7,35 @@ let number2;
 const numbers = document.querySelectorAll('.number')
 numbers.forEach(number => {
     number.addEventListener('click', (e)=>{
-        let digit = parseFloat(number.value)
+        let digit = number.value
         limitNumberLength(digit)
     })
 });
+
+const lastScreen = document.querySelector('.lastScreen')
+function transferToLastScreen(opperator){
+    lastScreen.innerText = screen.innerText
+    screen.innerText = '';
+    resetLength()
+}
+const opperators = document.querySelectorAll('.opperator')
+opperators.forEach(opperator => {
+    opperator.addEventListener('click', (e)=>{
+        //if user clicks opperator before a number
+        if(screen.innerText == '' && lastScreen.innerText == ''){
+            window.alert('Malformed expression')
+            return false
+        }
+        //when opperator is clicked, set numbers to what is in screen
+        if(number1 == undefined){
+            number1 = parseFloat(screen.innerText)
+            transferToLastScreen(opperator.value)
+        }else{
+            number2 = parseFloat(screen.innerText)
+        }
+        
+    })
+})
 
 const screen = document.querySelector('.calculatorScreen')
 
@@ -27,4 +52,7 @@ function limitNumberLength(digit){
         return true
     }
     return false;
+}
+function resetLength(){
+    currentLength = 0;
 }
