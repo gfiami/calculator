@@ -5,25 +5,29 @@ const screen = document.querySelector('.calculatorScreen')
 const upperScreen = document.querySelector('.lastScreen')
 
 
+//shows on the calculator screen the number that the user is inputing
 numbers.forEach((element)=>{
     element.addEventListener('click', showDigitOnScreen)
 })
-
 function showDigitOnScreen(){
     screen.innerText += this.value
     updateNumber()
 }
+
+//stores in a variable the number from the screen
 let currentNumber;
 function updateNumber(){
     currentNumber = parseFloat(screen.innerText);
 
 }
 
+//shows the sign of the operator used
 let operatorSign;
 operators.forEach((element)=>{
     element.addEventListener('click', showOperator)
 })
 
+//saves the second number in another variable and updates the other variable
 let upperNumber;
 function showOperator(){
     if(operatorSign == undefined){
@@ -39,11 +43,18 @@ function showOperator(){
     }
     
 }
+equal.addEventListener('click', showResult)
+function showResult(){
+    if(operatorSign != undefined && upperNumber != undefined && currentNumber != undefined){
+        upperScreen.innerText = operate(currentNumber, upperNumber, operatorSign)
+        screen.innerText = ''
+        operatorSign = undefined
+        currentNumber = upperNumber
 
-
-function teste(){
-    console.log('oi')
+    }
 }
+
+//define the math operator with the sign string
 function operate(n1, n2, op){
     let result;
     switch(op){
