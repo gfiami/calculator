@@ -8,7 +8,7 @@ const numbers = document.querySelectorAll('.number')
 numbers.forEach(number => {
     number.addEventListener('click', (e)=>{
         let digit = parseFloat(number.value)
-        updateScreen(digit)
+        limitNumberLength(digit)
     })
 });
 
@@ -19,7 +19,12 @@ function updateScreen(digit){
 }
 
 const maxLength = 13
-let atualLength = 0;
-function limitNumberLength(){
-
+let currentLength = 0;
+function limitNumberLength(digit){
+    if(currentLength < 13){
+        updateScreen(digit)
+        currentLength++
+        return true
+    }
+    return false;
 }
