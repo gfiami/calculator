@@ -1,58 +1,67 @@
-function operate(n1, n2, operator){
-    
-}
-let number1;
-let number2;
-
 const numbers = document.querySelectorAll('.number')
-numbers.forEach(number => {
-    number.addEventListener('click', (e)=>{
-        let digit = number.value
-        limitNumberLength(digit)
-    })
-});
+const operators = document.querySelectorAll('.operator')
+const equal = document.querySelector('.equal')
+const screen = document.querySelector('.calculatorScreen')
+const upperScreen = document.querySelector('.lastScreen')
 
-const lastScreen = document.querySelector('.lastScreen')
-function transferToLastScreen(opperator){
-    lastScreen.innerText = screen.innerText
-    screen.innerText = '';
-    resetLength()
-}
-const opperators = document.querySelectorAll('.opperator')
-opperators.forEach(opperator => {
-    opperator.addEventListener('click', (e)=>{
-        //if user clicks opperator before a number
-        if(screen.innerText == '' && lastScreen.innerText == ''){
-            window.alert('Malformed expression')
-            return false
-        }
-        //when opperator is clicked, set numbers to what is in screen
-        if(number1 == undefined){
-            number1 = parseFloat(screen.innerText)
-            transferToLastScreen(opperator.value)
-        }else{
-            number2 = parseFloat(screen.innerText)
-        }
-        
-    })
+
+numbers.forEach((element)=>{
+    element.addEventListener('click', showDigitOnScreen)
 })
 
-const screen = document.querySelector('.calculatorScreen')
+function showDigitOnScreen(){
+    screen.innerText += this.value
+    updateNumber()
+}
+let currentNumber;
+function updateNumber(){
+    currentNumber = parseFloat(screen.innerText);
 
-function updateScreen(digit){
-    screen.innerText += digit
 }
 
-const maxLength = 13
-let currentLength = 0;
-function limitNumberLength(digit){
-    if(currentLength < 13){
-        updateScreen(digit)
-        currentLength++
-        return true
+let operatorSign;
+operators.forEach((element)=>{
+    element.addEventListener('click', showOperator)
+})
+
+let upperNumber;
+function showOperator(){
+    if(operatorSign == undefined){
+        upperNumber = currentNumber
+        upperScreen.innerText = `${upperNumber} ${this.value}`
+        screen.innerText = ''
+        operatorSign = this.value
+    } else{
+        upperScreen.innerText = operate(currentNumber, upperNumber, operatorSign) + this.value
+        screen.innerText = ''
+        operatorSign = this.value
+        
     }
-    return false;
+    
 }
-function resetLength(){
-    currentLength = 0;
+
+
+function teste(){
+    console.log('oi')
 }
+function operate(n1, n2, op){
+    let result;
+    switch(op){
+        case('x'):
+                result = n2*n1
+            break
+        case('÷'):
+                result = n2/n1
+            break
+        case('+'):
+                result = n2+n1
+            break
+        case('-'):
+                result = n2-n1
+            break
+    }
+
+    upperNumber = result;
+        return result;
+}
+    
