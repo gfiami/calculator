@@ -5,6 +5,16 @@ const screen = document.querySelector('.calculatorScreen')
 const upperScreen = document.querySelector('.lastScreen')
 const clear = document.querySelector('.clear')
 const backspace = document.querySelector('.backspace')
+const dot = document.querySelector('.dot')
+//float numbers with '.'
+dot.addEventListener('click', ()=>{
+        let charDot = '.'
+        if(screen.innerText.includes(charDot)){
+            return false
+        }else{
+            screen.innerText += charDot
+        }
+    });
 //shows on the calculator screen the number that the user is inputing
 numbers.forEach((element)=>{
     element.addEventListener('click', showDigitOnScreen)
@@ -73,7 +83,7 @@ function operate(n1, n2, op){
     }
 
     upperNumber = result;
-        return result;
+        return result.toFixed(4);
 }
 
 //resets calculator
