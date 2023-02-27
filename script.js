@@ -84,7 +84,10 @@ function operate(n1, n2, op){
     }
 
     upperNumber = result;
-        return result.toFixed(2);
+        if (result % 1 == 0){
+            return result
+        }
+        return result.toFixed(7);
 }
 
 //resets calculator
