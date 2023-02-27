@@ -13,6 +13,11 @@ dot.addEventListener('click', ()=>{
         if(screen.innerText.includes(charDot)){
             return false
         }else{
+            if(screen.innerText == ''){
+                screen.innerText = '0.'
+                updateNumber()
+                return true
+            }
             screen.innerText += charDot
         }
     });
@@ -87,6 +92,9 @@ function operate(n1, n2, op){
     }
 
     upperNumber = result;
+        if(upperNumber == NaN || upperNumber == Infinity){
+            return "Can't divide by 0!"
+        }
         if (result % 1 == 0){
             return result
         }
@@ -110,12 +118,11 @@ backspace.addEventListener('click',()=>{
     let numbersTotext = currentNumber.toString()
     index = numbersTotext.length-1
     let newNumbers;
-    if (index == 0 || (index == 1 && numbersTotext[0] == '-')){
+    if (index == 0 || (index == 1 &&numbersTotext[0] == '-')){
         newNumbers = undefined
         currentNumber = undefined
         screen.innerText = ''
     }else{
-
         newNumbers = numbersTotext.slice(0,index)
         currentNumber = parseFloat(newNumbers)
         screen.innerText = currentNumber
