@@ -41,6 +41,9 @@ operators.forEach((element)=>{
 //saves the second number in another variable and updates the other variable
 let upperNumber;
 function showOperator(){
+    if(!checkToCalcenOperation()){
+        return false
+    }
     if(operatorSign == undefined){
         upperNumber = currentNumber
         upperScreen.innerText = `${upperNumber} ${this.value}`
@@ -101,6 +104,9 @@ clear.addEventListener('click', ()=>{
 
 //deletes last digit
 backspace.addEventListener('click',()=>{
+    if(!checkToCalcenOperation()){
+        return false
+    }
     let numbersTotext = currentNumber.toString()
     index = numbersTotext.length-1
     let newNumbers;
@@ -119,6 +125,17 @@ backspace.addEventListener('click',()=>{
 
 //transform current number to - or +
 plusminus.addEventListener('click', () =>{
+    if(!checkToCalcenOperation()){
+        return false
+    }
     screen.innerText = parseFloat(screen.innerText) * (-1)
     updateNumber()
 })
+
+//checks if the button should not work
+function checkToCalcenOperation(){
+    if (screen.innerText == ''){
+        return false
+    }
+        return true
+}
