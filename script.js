@@ -47,6 +47,7 @@ operators.forEach((element)=>{
 let upperNumber;
 function showOperator(){
     if (!checkToCancelOperation()){
+
         return false
     }
     if (operatorSign == undefined){
@@ -65,10 +66,13 @@ function showOperator(){
 equal.addEventListener('click', showResult)
 function showResult(){
     if(operatorSign != undefined && upperNumber != undefined && currentNumber != undefined){
+        if(Number.isNaN(currentNumber)){
+            return;
+        }
         upperScreen.innerText = operate(currentNumber, upperNumber, operatorSign)
         screen.innerText = ''
+        updateNumber()
         operatorSign = undefined
-        currentNumber = upperNumber
     }
 }
 
