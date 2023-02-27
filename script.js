@@ -10,17 +10,16 @@ const plusminus = document.querySelector('.plusminus')
 //float numbers with '.'
 dot.addEventListener('click', ()=>{
         let charDot = '.'
-        if(screen.innerText.includes(charDot)){
-            return false
-        }else{
-            if(screen.innerText == ''){
-                screen.innerText = '0.'
-                updateNumber()
-                return true
-            }
-            screen.innerText += charDot
+        if (screen.innerText.includes(charDot)){
+            return;
         }
-    });
+        if (screen.innerText == ''){
+            screen.innerText = '0.'
+            updateNumber()
+            return;
+        }
+            screen.innerText += charDot
+        });
 //shows on the calculator screen the number that the user is inputing
 numbers.forEach((element)=>{
     element.addEventListener('click', showDigitOnScreen)
@@ -46,21 +45,19 @@ operators.forEach((element)=>{
 //saves the second number in another variable and updates the other variable
 let upperNumber;
 function showOperator(){
-    if(!checkToCalcenOperation()){
+    if (!checkToCalcenOperation()){
         return false
     }
-    if(operatorSign == undefined){
+    if (operatorSign == undefined){
         upperNumber = currentNumber
         upperScreen.innerText = `${upperNumber} ${this.value}`
         screen.innerText = ''
         operatorSign = this.value
-    } else{
+        return;
+    }
         upperScreen.innerText = operate(currentNumber, upperNumber, operatorSign) + this.value
         screen.innerText = ''
-        operatorSign = this.value
-        
-    }
-    
+        operatorSign = this.value 
 }
 equal.addEventListener('click', showResult)
 function showResult(){
@@ -69,7 +66,6 @@ function showResult(){
         screen.innerText = ''
         operatorSign = undefined
         currentNumber = upperNumber
-
     }
 }
 
@@ -90,7 +86,6 @@ function operate(n1, n2, op){
                 result = n2-n1
             break
     }
-
     upperNumber = result;
         if(upperNumber == NaN || upperNumber == Infinity){
             return "Can't divide by 0!"
@@ -122,13 +117,12 @@ backspace.addEventListener('click',()=>{
         newNumbers = undefined
         currentNumber = undefined
         screen.innerText = ''
-    }else{
+        return;
+    }
         newNumbers = numbersTotext.slice(0,index)
         currentNumber = parseFloat(newNumbers)
         screen.innerText = currentNumber
-    }
 
-    
 })
 
 //transform current number to - or +
