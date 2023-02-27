@@ -46,8 +46,12 @@ operators.forEach((element)=>{
 //saves the second number in another variable and updates the other variable
 let upperNumber;
 function showOperator(){
+    if(operatorSign != undefined && screen.innerText == ''){
+        upperScreen.innerText = upperNumber + this.value
+        operatorSign = this.value 
+        return;
+    }
     if (!checkToCancelOperation()){
-
         return false
     }
     if (operatorSign == undefined){
