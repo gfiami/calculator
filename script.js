@@ -98,12 +98,19 @@ clear.addEventListener('click', ()=>{
 
 //deletes last digit
 backspace.addEventListener('click',()=>{
-
     let numbersTotext = currentNumber.toString()
     index = numbersTotext.length-1
-    let newNumbers = numbersTotext.slice(0,index)
-    currentNumber = parseFloat(newNumbers)
-    screen.innerText = currentNumber
+    let newNumbers;
+    if (index == 0){
+        newNumbers = undefined
+        currentNumber = undefined
+        screen.innerText = ''
+    }else{
+        newNumbers = numbersTotext.slice(0,index)
+        currentNumber = parseFloat(newNumbers)
+        screen.innerText = currentNumber
+    }
+
     
 })
 
