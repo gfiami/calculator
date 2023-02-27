@@ -6,6 +6,7 @@ const upperScreen = document.querySelector('.lastScreen')
 const clear = document.querySelector('.clear')
 const backspace = document.querySelector('.backspace')
 const dot = document.querySelector('.dot')
+const plusminus = document.querySelector('.plusminus')
 //float numbers with '.'
 dot.addEventListener('click', ()=>{
         let charDot = '.'
@@ -83,7 +84,7 @@ function operate(n1, n2, op){
     }
 
     upperNumber = result;
-        return result.toFixed(4);
+        return result.toFixed(2);
 }
 
 //resets calculator
@@ -97,10 +98,17 @@ clear.addEventListener('click', ()=>{
 
 //deletes last digit
 backspace.addEventListener('click',()=>{
-     let numbersTotext = currentNumber.toString()
-     index = numbersTotext.length-1
-     let newNumbers = numbersTotext.slice(0,index)
-     currentNumber = parseFloat(newNumbers)
-     screen.innerText = currentNumber
+
+    let numbersTotext = currentNumber.toString()
+    index = numbersTotext.length-1
+    let newNumbers = numbersTotext.slice(0,index)
+    currentNumber = parseFloat(newNumbers)
+    screen.innerText = currentNumber
     
+})
+
+//transform current number to - or +
+plusminus.addEventListener('click', () =>{
+    screen.innerText = parseFloat(screen.innerText) * (-1)
+    updateNumber()
 })
