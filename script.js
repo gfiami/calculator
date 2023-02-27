@@ -7,7 +7,7 @@ const clear = document.querySelector('.clear')
 const backspace = document.querySelector('.backspace')
 const dot = document.querySelector('.dot')
 const plusminus = document.querySelector('.plusminus')
-
+const buttons = document.querySelectorAll('button')
 //float numbers with '.'
 dot.addEventListener('click', ()=>{
     let charDot = '.'
@@ -74,6 +74,9 @@ function showResult(){
             return;
         }
         upperScreen.innerText = operate(currentNumber, upperNumber, operatorSign)
+        if (upperScreen.innerText == "Can't divide by 0 - Reseting..."){
+            blockAndReset();
+        }
         screen.innerText = ''
         updateNumber()
         operatorSign = undefined
@@ -100,7 +103,7 @@ function operate(n1, n2, op){
     upperNumber = result;
     if(Number.isNaN(upperNumber) || upperNumber == Infinity){
         upperNumber = undefined
-        return "Can't divide by 0! Use 'Clear'."
+        return "Can't divide by 0 - Reseting...";
     }
     if (result % 1 == 0){
         return result
@@ -109,13 +112,18 @@ function operate(n1, n2, op){
 }
 
 //resets calculator
-clear.addEventListener('click', ()=>{
+clear.addEventListener('click', resetCalculator)
+function resetCalculator(){
+    buttons.forEach(element => {
+        element.disabled = false;
+    });    
     upperNumber = undefined
     currentNumber = undefined
     operatorSign = undefined
     screen.innerText = ''
     upperScreen.innerText = ''
-})
+
+}
 
 //deletes last digit
 backspace.addEventListener('click',()=>{
@@ -153,3 +161,11 @@ function checkToCancelOperation(){
     }
     return true
 }
+
+function blockAndReset(){
+    buttons.forEach(element => {
+        element.disabled = true;
+    });
+    setTimeout(resetCalculator, 3000)
+}
+
